@@ -22,7 +22,16 @@ import {
   ZipcodeWrapper,
   Error
 } from "../../../styles/emotion";
+import { gql, useMutation } from "@apollo/client"
 import { useState } from 'react'
+
+const CREATE_BOARD = gql`
+mutation createBoard($createBoardInput: CreateBoardInput!){
+  createBoard(createBoardInput: $createBoardInput){
+    _id
+  }
+}
+`
 
 export default function BoardWriteUI() {
 
@@ -35,6 +44,8 @@ export default function BoardWriteUI() {
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
+
+  const [createBoard] = useMutation(CREATE_BOARD)
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -64,7 +75,7 @@ export default function BoardWriteUI() {
     }
   }
 
-  function onClickSignup() {
+  const onClickSignup = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.")
     }
@@ -78,6 +89,16 @@ export default function BoardWriteUI() {
       setContentsError("내용을 입력해주세요.")
     }
     if (writer && password && title && contents) {
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer: writer,
+            password: password,
+            title: title,
+            contents: contents
+          }
+        }
+      })
       alert("게시물이 등록되었습니다.")
     }
   }
