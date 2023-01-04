@@ -24,6 +24,7 @@ import {
 } from "../../../styles/emotion";
 import { gql, useMutation } from "@apollo/client"
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const CREATE_BOARD = gql`
 mutation createBoard($createBoardInput: CreateBoardInput!){
@@ -46,6 +47,8 @@ export default function BoardWriteUI() {
   const [contentsError, setContentsError] = useState("");
 
   const [createBoard] = useMutation(CREATE_BOARD)
+
+  const router = useRouter()
 
   function onChangeWriter(event) {
     setWriter(event.target.value);
@@ -100,6 +103,7 @@ export default function BoardWriteUI() {
         }
       })
       alert("게시물이 등록되었습니다.")
+      router.push(`/boards/${result.data.createBoard._id}`)
     }
   }
 

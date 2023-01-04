@@ -24,19 +24,24 @@ export default function ProductRegisterPage() {
     const [createProduct] = useMutation(CREATE_PRODUCT)
 
     const onClickSubmit = async () => {
-        const result = await createProduct({
-            variables: {
-                seller,
-                createProductInput: {
-                    name,
-                    detail,
-                    price
+        try {
+            const result = await createProduct({
+                variables: {
+                    seller,
+                    createProductInput: {
+                        name,
+                        detail,
+                        price
+                    }
                 }
-            }
-        })
-        console.log(result.data.createProduct._id)
-        alert(result.data.createProduct.message)
-        router.push(`/05/boards/product-reigisted/${result.data.createProduct._id}`)
+            })
+            console.log(result.data.createProduct._id)
+            alert(result.data.createProduct.message)
+            router.push(`/05/boards/product-reigisted/${result.data.createProduct._id}`)
+        }
+        catch (error) {
+            alert(error.message)
+        }
     }
 
     const onChangeSeller = (event) => {
