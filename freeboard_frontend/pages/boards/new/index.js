@@ -75,7 +75,7 @@ export default function BoardWriteUI() {
     }
   }
 
-  const onClickSignup = async () => {
+  const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.")
     }
@@ -92,7 +92,7 @@ export default function BoardWriteUI() {
       const result = await createBoard({
         variables: {
           createBoardInput: {
-            writer: writer,
+            writer: writer,       // key, value 같으면 value 생략 가능 (shorthand-property)
             password: password,
             title: title,
             contents: contents
@@ -155,7 +155,7 @@ export default function BoardWriteUI() {
         <RadioLabel htmlFor="image">사진</RadioLabel>
       </OptionWrapper>
       <ButtonWrapper>
-        <SubmitButton onClick={onClickSignup}>등록하기</SubmitButton>
+        <SubmitButton onClick={onClickSubmit}>등록하기</SubmitButton>
       </ButtonWrapper>
     </Wrapper>
   );
