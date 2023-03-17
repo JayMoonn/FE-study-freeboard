@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { IDislikeIconWrapper, ILikeIconWrapper } from "./BoardDetail.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -40,9 +41,34 @@ export const Info = styled.div`
   justify-content: center;
 `;
 
+export const HeaderIconWrapper = styled.div`
+  color: red;
+  font-size: 25px;
+`;
+
 export const Writer = styled.div``;
 
 export const CreateAt = styled.div``;
+
+export const Address = styled.div`
+  display: none;
+  position: absolute;
+  width: 200px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  right: 14%;
+`;
+
+export const AddressIconWrapper = styled.span`
+  margin-left: 10px;
+  :hover + .address {
+    display: block;
+  }
+`;
 
 export const Body = styled.div`
   width: 100%;
@@ -58,11 +84,36 @@ export const Contents = styled.div`
   padding-bottom: 120px;
 `;
 
+export const Youtube = styled.iframe`
+  width: 560px;
+  height: 315px;
+  text-align: center;
+`;
+
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding-top: 80px;
+`;
+
+export const LikeWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  color: gray;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+export const LikeIconWrapper = styled.div`
+  margin: 15px;
+  color: ${(props: ILikeIconWrapper) => (props.isLike ? "blue" : "gray")};
+`;
+
+export const DislikeIconWrapper = styled.div`
+  margin: 15px;
+  color: ${(props: IDislikeIconWrapper) => (props.isDislike ? "red" : "gray")};
 `;
 
 export const Button = styled.button`
