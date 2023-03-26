@@ -2,7 +2,8 @@ import * as S from "./Navigation.styles";
 import { INavigationUIProps } from "./Navigation.types";
 
 const Menu = [
-  { id: "boards", title: "자유게시판" },
+  { id: "boards-firebase", title: "자유게시판(firebase)" },
+  { id: "boards", title: "자유게시판(백엔드)" },
   { id: "market", title: "중고마켓" },
   { id: "mypage", title: "마이페이지" },
 ];
