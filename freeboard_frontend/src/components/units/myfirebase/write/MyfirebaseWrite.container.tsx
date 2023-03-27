@@ -1,6 +1,6 @@
 import MyfirebaseWriteUI from "./MyfirebaseWrite.presenter";
 import { collection, addDoc, getFirestore } from "firebase/firestore/lite";
-import { firebaseApp } from "../../../commons/openapis/_app";
+import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

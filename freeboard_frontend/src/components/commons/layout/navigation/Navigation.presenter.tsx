@@ -1,6 +1,6 @@
 import * as S from "./Navigation.styles";
 import { INavigationUIProps } from "./Navigation.types";
-
+import { v4 as uuidv4 } from "uuid";
 const Menu = [
   { id: "boards-firebase", title: "자유게시판(firebase)" },
   { id: "boards", title: "자유게시판(백엔드)" },
@@ -12,11 +12,9 @@ export default function NavigationUI(props: INavigationUIProps) {
   return (
     <S.Wrapper>
       {Menu.map((el, index) => (
-        <>
-          <S.Button key={el.id} onClick={props.onClickMenu} id={el.id}>
-            {el.title}
-          </S.Button>
-        </>
+        <S.Button key={uuidv4()} onClick={props.onClickMenu} id={el.id}>
+          {el.title}
+        </S.Button>
       ))}
     </S.Wrapper>
   );

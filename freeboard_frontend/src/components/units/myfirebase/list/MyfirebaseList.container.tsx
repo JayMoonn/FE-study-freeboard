@@ -1,6 +1,6 @@
 import MyfirebaseUI from "./MyfirebaseList.presenter";
 import { collection, getDocs, getFirestore } from "firebase/firestore/lite";
-import { firebaseApp } from "../../../commons/openapis/_app";
+import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
