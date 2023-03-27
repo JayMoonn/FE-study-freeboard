@@ -65,6 +65,9 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     } catch (error: any) {
       alert(error.message);
     }
+    setWriter("");
+    setPassword("");
+    setContents("");
   };
 
   const onClickUpdateComment = async () => {
@@ -95,6 +98,8 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     <BoardCommentWriteUI
       rate={rate}
       setRate={setRate}
+      password={password}
+      writer={writer}
       contents={contents}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}

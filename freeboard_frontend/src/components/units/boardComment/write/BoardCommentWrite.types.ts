@@ -10,6 +10,8 @@ export interface IBoardCommentWriteProps {
 export interface IBoardCommentWriteUIProps {
   rate: number;
   setRate: Dispatch<SetStateAction<number>>;
+  password: string;
+  writer: string;
   contents: string;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;

@@ -7,22 +7,29 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
       <S.TitleWrapper>
         <S.PencilIcon src="/images/boardComment/write/pencil.png" />
         <span>{props.isEdit ? "댓글 수정" : "댓글 작성"}</span>
-        <S.Star onChange={props.setRate} value={props.rate} />
+        <S.Star onChange={props.setRate} />
       </S.TitleWrapper>
       <S.InputWrapper>
         <S.Input
           placeholder="작성자"
           onChange={props.onChangeWriter}
-          defaultValue={props.isEdit ? String(props.el?.writer) : ""}
+          // defaultValue={props.isEdit ? String(props.el?.writer) : ""}
+          value={props.writer || (props.el?.writer ?? "")}
         />
-        <S.Input placeholder="비밀번호" onChange={props.onChangePassword} />
+        <S.Input
+          type="password"
+          placeholder="비밀번호"
+          onChange={props.onChangePassword}
+          value={props.password}
+        />
       </S.InputWrapper>
       <S.ContentsWrapper>
         <S.Contents
           maxLength={100}
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           onChange={props.onChangeContents}
-          defaultValue={props.isEdit ? props.el?.contents : ""}
+          value={props.contents || (props.el?.contents ?? "")}
+          // defaultValue={props.isEdit ? props.el?.contents : ""}
         />
         <S.BottomWrapper>
           <S.ContentsLength>{props.contents.length}/100</S.ContentsLength>
