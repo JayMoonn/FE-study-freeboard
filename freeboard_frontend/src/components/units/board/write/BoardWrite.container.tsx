@@ -1,13 +1,14 @@
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
 import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
+  IMutationUploadFileArgs,
 } from "../../../../commons/types/generated/types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
@@ -22,6 +23,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [imgUrl, setImgUrl] = useState(["", "", ""]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -36,6 +38,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
     Pick<IMutation, "updateBoard">,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   const router = useRouter();
 
@@ -97,6 +103,42 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setIsModalOpen((prev) => !prev);
   };
 
+  const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    console.log(file);
+    const indexx = event.target.id;
+
+    try {
+      const result = await uploadFile({ variables: { file } });
+      const newImgUrl = [...imgUrl];
+      newImgUrl[Number(indexx)] = result.data?.uploadFile.url ?? "";
+      setImgUrl(newImgUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   console.log(file);
+  //   if (!file?.size) {
+  //     alert("파일이 존재하지 않습니다.");
+  //     return;
+  //   }
+  //   if (file.size > 5 * 1024 * 1024) {
+  //     alert("파일의 사이즈가 너무 큽니다. (5MB 제한)");
+  //     return;
+  //   }
+
+  //   try {
+  //     const result = await uploadFile({ variables: { file } });
+  //     const newImgUrl = [...imgUrl];
+  //     newImgUrl[0] = result.data?.uploadFile.url ?? "";
+  //     setImgUrl(newImgUrl);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -125,6 +167,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
                 address,
                 addressDetail,
               },
+              images: [...imgUrl],
             },
           },
         });
@@ -174,6 +217,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangeAddressDetail={onChangeAddressDetail}
       onChangeContents={onChangeContents}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onChangeFile={onChangeFile}
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeWriter={onChangeWriter}
@@ -181,6 +225,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onClickEdit={onClickEdit}
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
+      imgUrl={imgUrl}
       address={address}
       zipcode={zipcode}
       writerError={writerError}

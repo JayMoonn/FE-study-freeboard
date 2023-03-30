@@ -1,3 +1,4 @@
+import UploadImgBtn from "../../uploadImg/UploadImgBtn";
 import * as S from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./BoardWrite.types";
 
@@ -91,9 +92,13 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       </S.InputWrapper>
       <S.ImageWrapper>
         <S.Label>사진첨부</S.Label>
-        <S.UploadButton>+</S.UploadButton>
-        <S.UploadButton>+</S.UploadButton>
-        <S.UploadButton>+</S.UploadButton>
+        {props.imgUrl.map((el, index) => (
+          <UploadImgBtn
+            onChangeFile={props.onChangeFile}
+            imgUrl={el}
+            index={index}
+          />
+        ))}
       </S.ImageWrapper>
       <S.OptionWrapper>
         <S.Label>메인설정</S.Label>

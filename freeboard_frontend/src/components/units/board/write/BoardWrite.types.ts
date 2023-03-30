@@ -32,10 +32,12 @@ export interface IBoardWriteUIProps {
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
   onClickEdit: () => void;
   onClickAddressSearch: () => void;
   onCompleteAddressSearch: (data: any) => void;
+  imgUrl: string[];
   zipcode: string;
   address: string;
   writerError: string;
