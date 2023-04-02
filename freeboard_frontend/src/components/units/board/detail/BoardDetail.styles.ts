@@ -90,6 +90,11 @@ export const Youtube = styled.iframe`
   text-align: center;
 `;
 
+export const Image = styled.img`
+  width: 300px;
+  margin: 20px;
+`;
+
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;

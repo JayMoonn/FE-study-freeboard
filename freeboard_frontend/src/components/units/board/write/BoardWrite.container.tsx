@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import BoardWriteUI from "./BoardWrite.presenter";
@@ -106,6 +106,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     console.log(file);
+    if (!file?.size) {
+      alert("파일이 존재하지 않습니다.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert("파일의 사이즈가 너무 큽니다. (5MB 제한)");
+      return;
+    }
     const indexx = event.target.id;
 
     try {
@@ -117,6 +125,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
       console.log(error);
     }
   };
+  // 이미지 업로드 수정을 위한 부분
+  useEffect(() => {
+    if (props.data?.fetchBoard.images?.length) {
+      setImgUrl([...props.data?.fetchBoard.images]);
+    }
+  }, [props.data]);
   // const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
   //   console.log(file);

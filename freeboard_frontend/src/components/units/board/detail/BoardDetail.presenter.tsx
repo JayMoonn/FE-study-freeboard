@@ -45,6 +45,13 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             ></S.Youtube>
+            {props.data?.fetchBoard.images
+              ?.filter((el: string) => el !== "")
+              .map((el: string) => (
+                <div>
+                  <S.Image src={`https://storage.googleapis.com/${el}`} />
+                </div>
+              ))}
           </div>
         </S.Body>
         <S.LikeWrapper>
